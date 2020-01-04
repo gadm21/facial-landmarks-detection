@@ -1,3 +1,12 @@
+'''
+this project uses this dataset on kaggle :: https://www.kaggle.com/c/facial-keypoints-detection
+to train a CNN to detect facial keypoints given an image of a face.
+
+
+In this file, we define the CNN model architecure which we will
+train on kaggle's face-landmarks dataset.
+
+'''
 
 from keras.models import Sequential
 from keras.models import load_model
@@ -10,15 +19,7 @@ from keras.optimizers import SGD, RMSprop, Adagrad, Adadelta, Adam, Adamax, Nada
 # import warnings
 # warnings.warn = warn
 
-'''
-this project uses this dataset on kaggle :: https://www.kaggle.com/c/facial-keypoints-detection
-to train a CNN to detect facial keypoints given an image of a face.
 
-
-In this file, we define the CNN model architecure which we will
-train on kaggle's face-landmarks dataset.
-
-'''
 
 
 def FaceLandmarks_CNN_model(input_shape= 96, channels= 1):
@@ -56,10 +57,10 @@ def compile_model(model, optimizer, loss, metrics):
 def train_model(model, x_train, y_train, epochs= 100, batch_size= 200, verbose= False):
     return model.fit(x_train, y_train, epochs= epochs, batch_size= batch_size, verbose= verbose, validation_split= validation_split)
 
-def save_model(model, file_name):
+def SaveModel(model, file_name):
     model.save(file_name+".h")
 
-def load_model(file_name):
+def LoadModel(file_name):
     return load_model(file_name+".h")
 
 m= FaceLandmarks_CNN_model()
