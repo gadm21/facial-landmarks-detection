@@ -52,9 +52,9 @@ def FaceLandmarks_CNN_model(input_shape= 96, channels= 1):
     return model
 
 def compile_model(model, optimizer, loss, metrics):
-    model.compile(optimizer= optimizer, loss= loss, metrics= metrics, validation_split= 0.2)
+    model.compile(optimizer= optimizer, loss= loss, metrics= metrics)
 
-def train_model(model, x_train, y_train, epochs= 100, batch_size= 200, verbose= False):
+def train_model(model, x_train, y_train, epochs= 100, batch_size= 200, verbose= False, validation_split= 0.2):
     return model.fit(x_train, y_train, epochs= epochs, batch_size= batch_size, verbose= verbose, validation_split= validation_split)
 
 def SaveModel(model, file_name):
