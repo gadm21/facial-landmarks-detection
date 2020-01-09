@@ -64,12 +64,15 @@ def get_contour_center(hsv_frame):
     blue_mask= extract_blue_mask(hsv_frame)
 
     #find contours in the image (bottle cap in this case)
-    (_, contours, _)= cv2.findContours(blue_mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    r= cv2.findContours(blue_mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours= r[1]
     center= None
 
+    return None
     #if any contours was found
-    if len(contours) > 0:
-
+    if contours is None or len(contours) == 0:
+        return None
+        
     #find the largest contour
     largest_contour= sorted(contours, key= cv2.contourArea, reverse= True)[0]
 
@@ -77,7 +80,7 @@ def get_contour_center(hsv_frame):
     ((x,y), radius)= cv2.minEnclosingCircle(largest_contour)
 
     #draw the circle around the contour
-    cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
+    cv2.circle(hsv_frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 
     # Get the moments to calculate the center of the contour (in this case Circle)
     M = cv2.moments(largest_contour)
@@ -89,7 +92,7 @@ def get_contour_center(hsv_frame):
 
 def preprocess_face(gray_face):
     normalized_face= gray_face/255
-    resized_face= cv2.resize(normalized_face, (96, 96), interpolation= cv2.INTER_AREA)
+    resized_face= cv2.resize(normalized_face, (96, 96))
     reshaped_face= resized_face.reshape(1, 96, 96, 1)
 
     return reshaped_face

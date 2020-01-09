@@ -58,10 +58,10 @@ def train_model(model, x_train, y_train, epochs= 100, batch_size= 200, verbose= 
     return model.fit(x_train, y_train, epochs= epochs, batch_size= batch_size, verbose= verbose, validation_split= validation_split)
 
 def SaveModel(model, file_name):
-    model.save(file_name+".h")
+    model.save(file_name+".h5")
 
 def LoadModel(file_name):
-    return load_model(file_name+".h")
+    return load_model(file_name+".h5")
 
 m= FaceLandmarks_CNN_model()
 print("hello")
